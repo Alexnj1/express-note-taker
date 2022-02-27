@@ -14,7 +14,8 @@ router.get('/notes', (req, res) => {
 router.post('/notes', (req, res) => {
     var request = req.body
     var array = notes
-    request.id = (array.length.toString())
+    var random = Math.random()
+    request.id = ((array.length * random).toString().slice(2)) || random.toString().slice(2)
     array.push(request)
     fs.writeFileSync(
         path.join(__dirname, "../../db/db.json"),
@@ -27,6 +28,21 @@ router.post('/notes', (req, res) => {
 router.delete('/notes/:id', (req, res) => {
     const deleteId = req.params.id
     console.log(deleteId)
+    var newArray = []
+    
+    newArray = notes.filter((note) => {
+        if(note.id !== deleteId) {
+            return true
+        }
+    })
+    console.log(newArray)
+    fs.writeFileSync(path.join(__dirname, "../../db/db.json"),
+    JSON.stringify(newArray , null, 2), (err) => {
+        if (err) throw err
+        else res.status(200)
+    })
+    console.log(res.statusCode)
+    
 })
 
 module.exports = router
