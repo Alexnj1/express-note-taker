@@ -25,24 +25,28 @@ router.post('/notes', (req, res) => {
     console.log(array)
 })
 
+// couldnt figure this part out, the db.json file gets rewritten with new data
+// excluding the deleted note but unless I stop and restart the server, that data doesn't
+// get saved on the webpage.
+
 router.delete('/notes/:id', (req, res) => {
     const deleteId = req.params.id
     console.log(deleteId)
-    var newArray = []
+    var newArray
     
     newArray = notes.filter((note) => {
         if(note.id !== deleteId) {
             return true
         }
     })
+
     console.log(newArray)
     fs.writeFileSync(path.join(__dirname, "../../db/db.json"),
     JSON.stringify(newArray , null, 2), (err) => {
         if (err) throw err
         else res.status(200)
     })
-    console.log(res.statusCode)
-    
+
 })
 
 module.exports = router
