@@ -50,7 +50,7 @@ const deleteNote = (id) =>
     headers: {
       "Content-Type": "application/json",
     },
-});
+})
 
 const renderActiveNote = () => {
   hide(saveNoteBtn);
@@ -93,8 +93,8 @@ const handleNoteDelete = (e) => {
     activeNote = {};
   }
 
+  window.location.reload()
   deleteNote(noteId)
-    // window.location.reload()
     .then(() => {
     getAndRenderNotes();
     renderActiveNote();
@@ -126,6 +126,7 @@ const handleRenderSaveBtn = () => {
 const renderNoteList = async (notes) => {
   let jsonNotes = await notes.json();
   if (window.location.pathname === "/notes") {
+    console.log(notes)
     noteList.forEach((el) => ( console.log(el)
       // el.innerHTML = ""
       ));
