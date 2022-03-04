@@ -93,7 +93,7 @@ const handleNoteDelete = (e) => {
     activeNote = {};
   }
 
-  window.location.reload()
+  // window.location.reload()
   deleteNote(noteId)
     .then(() => {
     getAndRenderNotes();
@@ -126,10 +126,10 @@ const handleRenderSaveBtn = () => {
 const renderNoteList = async (notes) => {
   let jsonNotes = await notes.json();
   if (window.location.pathname === "/notes") {
-    console.log(notes)
-    noteList.forEach((el) => ( console.log(el)
-      // el.innerHTML = ""
-      ));
+    // console.log(notes)
+    noteList.forEach((el) => ( 
+      el.innerHTML = ""
+    ));
   }
 
   let noteListItems = [];
